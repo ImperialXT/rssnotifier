@@ -19,14 +19,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-4v6r8dw3rtml0k%csu=7+!^1o&^(@whe!3(ipj%+t=c$1b@em'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['rssnotifier',]
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -36,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
     'django_cron',
     'feed',
 ]
@@ -120,10 +113,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+CELERY_TASK_ROUTES = ([
+    ('feed.*', {'queue': 'rssnotifier'}),
+],)
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-
-STATIC_URL = '/static/'
 
 from .settings_local import *

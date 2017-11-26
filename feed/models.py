@@ -13,7 +13,7 @@ import time
 import pytz
 import re
 from functools import reduce
-class Contact(models.Model):
+class Subscriber(models.Model):
     name = models.TextField()
     email = models.EmailField(unique=True)
 
@@ -26,6 +26,7 @@ class Feed(models.Model):
     url = models.TextField(unique=True)
     last_fetch = models.DateTimeField()
     fetch_frequency = models.DurationField(default = datetime.timedelta(hours=1))
+    subscribers = models.ManyToManyField(Subscriber)
     enabled = models.BooleanField()
 
     def age(self):
@@ -54,6 +55,9 @@ class Entry(models.Model):
     title = models.TextField()
     blurb = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = 'Entries'
 
     def __str__(self):
         return self.title
