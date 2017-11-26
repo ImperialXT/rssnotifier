@@ -25,9 +25,7 @@ SECRET_KEY = '-4v6r8dw3rtml0k%csu=7+!^1o&^(@whe!3(ipj%+t=c$1b@em'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.5',]
-
-STATIC_URL = '/static/'
+ALLOWED_HOSTS = ['rssnotifier',]
 
 # Application definition
 
@@ -127,3 +125,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+from .settings_local import *
