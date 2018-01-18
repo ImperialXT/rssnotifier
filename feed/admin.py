@@ -13,7 +13,16 @@ class EntryAdmin(admin.ModelAdmin):
 class SubscriberAdmin(admin.ModelAdmin):
     list_display = ['name','email']
 
-admin.site.register(Feed)
+class FeedAdmin(admin.ModelAdmin):
+    list_display = ['title','url','last_fetch', 'enabled']
+    ordering = ['title']
+    actions = [ 'fetch_feed']
+
+    def fetch_feed(self, request, queryset):
+        for obj in queryset:
+            obj.fetch()
+
+admin.site.register(Feed, FeedAdmin)
 admin.site.register(Subscriber, SubscriberAdmin)
 admin.site.register(Entry, EntryAdmin)
 # Register your models here.
