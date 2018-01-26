@@ -50,7 +50,7 @@ class Feed(models.Model):
         self.save()
 
 class Entry(models.Model):
-    feed = models.ForeignKey(Feed)
+    feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
     url = models.TextField(unique=True)
     title = models.TextField()
     blurb = models.TextField()
